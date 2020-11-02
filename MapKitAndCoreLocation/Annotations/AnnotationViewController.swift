@@ -9,7 +9,12 @@
 import UIKit
 import MapKit
 
+enum AnnotationType {
+    case restaurant
+}
+
 struct MyLocation {
+    var annotationType: AnnotationType
     var locationName: String
     var locationCoordinate: CLLocationCoordinate2D
 }
@@ -17,7 +22,6 @@ struct MyLocation {
 class AnnotationViewController: UIViewController {
     
     //10.0443° N, 76.3282° E
-    let annotationViewItentifier = "MyAnnotationView"
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,27 +30,25 @@ class AnnotationViewController: UIViewController {
         mapView.delegate = self
         
         //registering our custom class as annotation view. So no need to explicitly create instance of MyAnnotationView
-//        mapView.register(MyAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-//        mapView.register(MyClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+        mapView.register(MyAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        mapView.register(MyClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         
         let c1 = CLLocationCoordinate2D(latitude: 10.0243, longitude: 76.3282)
         let c2 = CLLocationCoordinate2D(latitude: 10.0343, longitude: 76.3382)
         let c3 = CLLocationCoordinate2D(latitude: 10.0443, longitude: 76.3282)
         
         
-        let l1 = MyLocation(locationName: "A1", locationCoordinate: c1)
-        let l2 = MyLocation(locationName: "A2", locationCoordinate: c2)
-        let l3 = MyLocation(locationName: "A3", locationCoordinate: c3)
+        let l1 = MyLocation(annotationType: .restaurant, locationName: "A1", locationCoordinate: c1)
+        let l2 = MyLocation(annotationType: .restaurant, locationName: "A2", locationCoordinate: c2)
+        let l3 = MyLocation(annotationType: .restaurant, locationName: "A3", locationCoordinate: c3)
         
         
         let arrayAnnotation = [l1, l2, l3].map { MyAnnotation($0) }
         mapView.addAnnotations(arrayAnnotation)
         
-        mapView.showAnnotations(arrayAnnotation, animated: true)
-        
-        //        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-        //        mapView.setRegion(MKCoordinateRegion(center: c1, span: span), animated: true)
-        //
+        let region = MKCoordinateRegion(center: c1, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        mapView.setRegion(region, animated: true)
+        //mapView.showAnnotations(arrayAnnotation, animated: true)
     }
 }
 
@@ -54,16 +56,21 @@ extension AnnotationViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
          if let myAnnotation = annotation as? MyAnnotation {
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationViewItentifier)
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            
             if annotationView == nil {
-                annotationView = MyAnnotationView(annotation: myAnnotation, reuseIdentifier: annotationViewItentifier)
+                annotationView = MyAnnotationView(annotation: myAnnotation, reuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
             }
+            //set properties which are unique for each annotationview
+            annotationView?.annotation = myAnnotation
             return annotationView
         } else if let clusterAnnotation = annotation as? MKClusterAnnotation {
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "MyClusterAnnotationView")
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
             if annotationView == nil {
-                annotationView = MyClusterAnnotationView(annotation: clusterAnnotation, reuseIdentifier: "MyClusterAnnotationView")
+                annotationView = MyClusterAnnotationView(annotation: clusterAnnotation, reuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
             }
+            //set properties which are unique for each annotationview
+            annotationView?.annotation = clusterAnnotation
             return annotationView
         } else {
             return nil
@@ -74,7 +81,19 @@ extension AnnotationViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if let annotateView = view as? MyAnnotationView {
-            print("location = \(annotateView.location)")
+            print("location = \(String(describing: annotateView.location))")
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotateView = view as? MyAnnotationView {
+            print("location = \(String(describing: annotateView.location))")
+        }
+    }
+
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if let annotateView = view as? MyAnnotationView {
+            print("location = \(String(describing: annotateView.location))")
         }
     }
 }

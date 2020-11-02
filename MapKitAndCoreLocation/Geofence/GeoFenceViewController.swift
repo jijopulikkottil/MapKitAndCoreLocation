@@ -10,139 +10,77 @@ import UIKit
 import CoreLocation
 import MapKit
 //https://developer.apple.com/documentation/corelocation/monitoring_the_user_s_proximity_to_geographic_regions
-//https://medium.com/@sharonmpeter1/creating-a-swift-app-with-geofencing-255033cfa144
-//https://www.raywenderlich.com/5247-core-location-tutorial-for-ios-tracking-visited-locations monitoring visits
 
 class GeoFenceViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
-    let regionInMeters = 10000.0
+    let regionInMeters = 100000.0
     // Create a location manager to trigger user tracking
-    let locationManager = CLLocationManager()
+    let locationManager = LocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkLocationServices()
-        
-        locationManager.startUpdatingLocation()
+        locationManager.initializeWithLocationUpdate(delegate: self)
+        locationManager.regionMonitoringDelegate = self
+
         mapView.showsUserLocation = true
+        mapView.delegate = self
         
         //19.0760° N, 72.8777° E mumbai
         let coordinate = CLLocationCoordinate2D(latitude: 19.0760, longitude: 72.8777)
-        monitorRegionAtLocation(center: coordinate, identifier: "Mumbai")
+        locationManager.monitorRegionAtLocation(center: coordinate, identifier: "Mumbai", radius: 8000.0)
         
+        //Circle overlay - MKCircle
+        let circle = MKCircle(center: coordinate, radius: 8000.0)
+        mapView?.addOverlay(circle)
+
+        //new mumbai 19.0330° N, 73.0297° E
+        let coordinate2 = CLLocationCoordinate2D(latitude: 19.0330, longitude: 73.0297)
+        locationManager.monitorRegionAtLocation(center: coordinate2, identifier: "Navi Mumbai", radius: 8000.0)
+        
+        //Circle overlay - MKCircle
+        let circle2 = MKCircle(center: coordinate2, radius: 8000.0)
+        mapView?.addOverlay(circle2)
         
     }
-    
-    func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-    }
-    
-    
+
     func centerViewOnUserLocation() {
-        if let location = locationManager.location?.coordinate {
+        if let location = locationManager.coordinate {
             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
             mapView.setRegion(region, animated: true)
         }
     }
-    
-    func checkLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
-            setupLocationManager()
-            checkLocationAuthorization()
-        } else {
-            print("not enabled")
-        }
-    }
-    
-    func checkLocationAuthorization() {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse:
-            startUpdates()
-            break
-        case .denied:
-            // Show alert instructing them how to turn on permissions
-            break
-        case .notDetermined:
-            locationManager.requestAlwaysAuthorization()
-        case .restricted:
-            // Show an alert letting them know what's up
-            break
-        case .authorizedAlways:
-            startUpdates()
-            break
-        @unknown default:
-            break
-        }
-    }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String ) {
-        // Make sure the app is authorized.
-        // Make sure region monitoring is supported.
-        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
-            // Register the region.
-            let maxDistance = 80000.0 //locationManager.maximumRegionMonitoringDistance
-            let region = CLCircularRegion(center: center,
-                                          radius: maxDistance, identifier: identifier)
-            region.notifyOnEntry = true
-            region.notifyOnExit = true
-            
-            locationManager.startMonitoring(for: region)
-            
-            locationManager.requestState(for: region)
-        }
-    }
-    
-    func startUpdates() {
-        mapView.showsUserLocation = true
+}
+
+extension GeoFenceViewController: LocationUpdateDelegate {
+    func updateToLocation(_ location: CLLocationCoordinate2D) {
         centerViewOnUserLocation()
-        locationManager.startUpdatingLocation()
     }
 }
 
-// MARK: - CLLocationManagerDelegate
-extension GeoFenceViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        mapView.setRegion(region, animated: true)
+extension GeoFenceViewController: RegionMonitoringDelegate {
+
+    func enteredToRegion(identifier: String) {
+        print("didEnterRegion identifier = \(identifier)")
     }
     
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationServices()
+    func exitedFromRegion(identifier: String) {
+        print("didExitRegion identifier \(identifier)")
     }
-    
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        if let region = region as? CLCircularRegion {
-            let identifier = region.identifier
-            print("didEnterRegion identifier = \(identifier)")
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        print("didExitRegion identifier \(region.identifier)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print("Monitoring failed for region with identifier: \(region) \(error.localizedDescription)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        print("didDetermineState \(state.rawValue)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("didFailWithError \(error.localizedDescription)")
+}
+
+
+extension GeoFenceViewController: MKMapViewDelegate {
+
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+      if overlay is MKCircle {
+        let circleView = MKCircleRenderer(overlay: overlay)
+        circleView.lineWidth = 1
+        circleView.strokeColor = UIColor.red
+        circleView.fillColor = UIColor.red.withAlphaComponent(0.3)
+        return circleView
+        
+      }
+      return MKOverlayRenderer()
     }
 }

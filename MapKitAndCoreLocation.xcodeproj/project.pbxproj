@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B242D2122517BD5C00B9AE91 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B242D2112517BD5C00B9AE91 /* LocationManager.swift */; };
 		B24783DA25120EE6001A9945 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24783D925120EE6001A9945 /* TableViewController.swift */; };
 		B24A9BF02511CE0600012C57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A9BEF2511CE0600012C57 /* AppDelegate.swift */; };
 		B24A9BF22511CE0600012C57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A9BF12511CE0600012C57 /* SceneDelegate.swift */; };
@@ -21,9 +22,11 @@
 		B24A9C152511CE3400012C57 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A9C0B2511CE3400012C57 /* MapViewController.swift */; };
 		B24A9C162511CE3400012C57 /* UserLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A9C0D2511CE3400012C57 /* UserLocationViewController.swift */; };
 		B24A9C172511CE3400012C57 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A9C0F2511CE3400012C57 /* OverlayViewController.swift */; };
+		B2B6C77725146EE600DD4CC8 /* MyMumbai.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B2B6C77625146EE600DD4CC8 /* MyMumbai.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B242D2112517BD5C00B9AE91 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		B24783D925120EE6001A9945 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		B24A9BEC2511CE0600012C57 /* MapKitAndCoreLocation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitAndCoreLocation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B24A9BEF2511CE0600012C57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +43,8 @@
 		B24A9C0B2511CE3400012C57 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B24A9C0D2511CE3400012C57 /* UserLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationViewController.swift; sourceTree = "<group>"; };
 		B24A9C0F2511CE3400012C57 /* OverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
+		B2B6C77625146EE600DD4CC8 /* MyMumbai.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MyMumbai.gpx; sourceTree = "<group>"; };
+		B2B6C778251471AC00DD4CC8 /* NewMumbai.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NewMumbai.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				B24A9C042511CE3400012C57 /* GeoFenceViewController.swift */,
+				B2B6C77625146EE600DD4CC8 /* MyMumbai.gpx */,
+				B2B6C778251471AC00DD4CC8 /* NewMumbai.gpx */,
 			);
 			path = Geofence;
 			sourceTree = "<group>";
@@ -119,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				B24A9C0D2511CE3400012C57 /* UserLocationViewController.swift */,
+				B242D2112517BD5C00B9AE91 /* LocationManager.swift */,
 			);
 			path = UserLocation;
 			sourceTree = "<group>";
@@ -191,6 +199,7 @@
 			files = (
 				B24A9BFC2511CE0800012C57 /* LaunchScreen.storyboard in Resources */,
 				B24A9BF92511CE0800012C57 /* Assets.xcassets in Resources */,
+				B2B6C77725146EE600DD4CC8 /* MyMumbai.gpx in Resources */,
 				B24A9BF72511CE0600012C57 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +219,7 @@
 				B24A9C122511CE3400012C57 /* AnnotationViewController.swift in Sources */,
 				B24783DA25120EE6001A9945 /* TableViewController.swift in Sources */,
 				B24A9C172511CE3400012C57 /* OverlayViewController.swift in Sources */,
+				B242D2122517BD5C00B9AE91 /* LocationManager.swift in Sources */,
 				B24A9C102511CE3400012C57 /* GeoFenceViewController.swift in Sources */,
 				B24A9C142511CE3400012C57 /* MyClusterAnnotationView.swift in Sources */,
 				B24A9BF22511CE0600012C57 /* SceneDelegate.swift in Sources */,
@@ -288,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -342,7 +352,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -360,6 +370,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = S2Y2D4239K;
 				INFOPLIST_FILE = MapKitAndCoreLocation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -380,6 +391,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = S2Y2D4239K;
 				INFOPLIST_FILE = MapKitAndCoreLocation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

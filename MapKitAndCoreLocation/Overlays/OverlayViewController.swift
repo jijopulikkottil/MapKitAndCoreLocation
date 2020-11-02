@@ -26,7 +26,7 @@ class OverlayViewController: UIViewController {
         let annotation = MKPointAnnotation()
         annotation.title = "CUSAT"
         annotation.subtitle = "The M Voc"
-
+        
         annotation.coordinate = CLLocationCoordinate2D(latitude: 10.0443, longitude: 76.3282)
         mapView.addAnnotation(annotation)
 
@@ -34,7 +34,6 @@ class OverlayViewController: UIViewController {
         let circle = MKCircle(center: CLLocationCoordinate2D(latitude: 10.0443, longitude: 76.3282), radius: 400)
         mapView.addOverlay(circle)
         //mapView.setVisibleMapRect(circle.boundingMapRect, animated: true)
-        
         
         let c1 = CLLocationCoordinate2D(latitude: 10.0443, longitude: 76.3282)
         let c2 = CLLocationCoordinate2D(latitude: 10.0443, longitude: 76.3382)

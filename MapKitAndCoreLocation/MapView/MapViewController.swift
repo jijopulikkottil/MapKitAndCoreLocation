@@ -23,7 +23,6 @@ class MapViewController: UIViewController {
         mapView.isZoomEnabled = false
         
         let coordinate = CLLocationCoordinate2D(latitude: 10.0443, longitude: 76.3282)
-
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 100, longitudinalMeters: 100)
         mapView.setRegion(region, animated: true)
 
