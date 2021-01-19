@@ -16,5 +16,4 @@ jobs:
       - name: Use current time
         env:
           DATE: "${{ steps.current-time.outputs.formattedTime }}"
-          Version: ${GITHUB_RUN_NUMBER}
-        run: echo $DATE $Version
+        run: echo $DATE $GITHUB_RUN_NUMBER
