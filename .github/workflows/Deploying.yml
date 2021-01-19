@@ -1,0 +1,19 @@
+name: Deploying
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    name: Deploying to Testflight
+    runs-on: macOS-latest
+    steps:
+      - name: Get current time
+        uses: srfrnk/current-time@master
+        id: current-time
+        with:
+          format: yyyy.M.dd
+      - name: Use current time
+        env:
+          DATE: "${{ steps.current-time.outputs.formattedTime }}"	
+        run: echo $DATE

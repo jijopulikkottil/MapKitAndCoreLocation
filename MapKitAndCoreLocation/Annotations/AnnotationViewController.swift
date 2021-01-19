@@ -33,17 +33,19 @@ class AnnotationViewController: UIViewController {
         mapView.register(MyAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.register(MyClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         
-        let c1 = CLLocationCoordinate2D(latitude: 10.0243, longitude: 76.3282)
-        let c2 = CLLocationCoordinate2D(latitude: 10.0343, longitude: 76.3382)
-        let c3 = CLLocationCoordinate2D(latitude: 10.0443, longitude: 76.3282)
+        let c1 = CLLocationCoordinate2D(latitude: 10.1363379, longitude: 76.1804662)
+        let c2 = CLLocationCoordinate2D(latitude: 10.1363379, longitude: 76.1804662)
+        let c3 = CLLocationCoordinate2D(latitude: 10.136337900000006, longitude: 76.1808095227539)
+        let c4 = CLLocationCoordinate2D(latitude: 10.182105263213348, longitude: 76.17198709398507)
         
         
-        let l1 = MyLocation(annotationType: .restaurant, locationName: "A1", locationCoordinate: c1)
-        let l2 = MyLocation(annotationType: .restaurant, locationName: "A2", locationCoordinate: c2)
-        let l3 = MyLocation(annotationType: .restaurant, locationName: "A3", locationCoordinate: c3)
+        let l1 = MyLocation(annotationType: .restaurant, locationName: "Wayfair Coffe House", locationCoordinate: c1)
+        let l2 = MyLocation(annotationType: .restaurant, locationName: "Club Coffe House", locationCoordinate: c2)
+        let l3 = MyLocation(annotationType: .restaurant, locationName: "Cafe Coffee Day", locationCoordinate: c3)
+        let l4 = MyLocation(annotationType: .restaurant, locationName: "Bonhoeffer Cafe", locationCoordinate: c4)
         
         
-        let arrayAnnotation = [l1, l2, l3].map { MyAnnotation($0) }
+        let arrayAnnotation = [l1, l2, l3, l4].map { MyAnnotation($0) }
         mapView.addAnnotations(arrayAnnotation)
         
         let region = MKCoordinateRegion(center: c1, latitudinalMeters: 10000, longitudinalMeters: 10000)

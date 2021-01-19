@@ -15,7 +15,7 @@ class MyClusterAnnotationView: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             if let cluster = newValue as? MKClusterAnnotation {
-                glyphText = "C"//\(cluster.memberAnnotations.count)"
+                glyphText = "\(cluster.memberAnnotations.count)"
             }
             
         }
