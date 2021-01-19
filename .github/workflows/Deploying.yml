@@ -15,5 +15,6 @@ jobs:
           format: YYYY.M.DD
       - name: Use current time
         env:
-          DATE: "${{ steps.current-time.outputs.formattedTime }}"	
-        run: echo $DATE
+          DATE: "${{ steps.current-time.outputs.formattedTime }}"
+          Version: $(git rev-list --count master)	
+        run: echo $DATE $Version
