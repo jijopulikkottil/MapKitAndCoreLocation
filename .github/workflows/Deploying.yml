@@ -8,6 +8,8 @@ jobs:
     name: Deploying to Testflight
     runs-on: macOS-latest
     steps:
+      - name: print
+        run: echo $GITHUB_RUN_NUMBER
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Get current time
@@ -17,8 +19,8 @@ jobs:
           format: YYYY.M.DD
       - name: build number
         run: |
-        echo 'BUILD_NUMBER<<EOF' >> $GITHUB_ENV
-        git rev-list --count master >> $GITHUB_ENV
-        echo 'EOF' >> $GITHUB_ENV
+          echo 'BUILD_NUMBER<<EOF' >> $GITHUB_ENV
+          git rev-list --count master >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
       - name: Checkout repository
         run: echo $BUILD_NUMBER
