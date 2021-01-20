@@ -19,4 +19,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKENN }}
           DATE: "${{ steps.current-time.outputs.formattedTime }}"
       - uses: yanamura/ios-bump-version@v1
-        run: echo $DATE $GITHUB_RUN_NUMBER $(git rev-list --count master)
