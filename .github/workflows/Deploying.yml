@@ -13,9 +13,8 @@ jobs:
         id: current-time
         with:
           format: YYYY.M.DD
+      - name: Get number of commits
+        run: |
+          commitnumber = $(git rev-list --count master)
       - name: Checkout repository
-        uses: actions/checkout@v2
-        env:
-          token: ${{ secrets.GITHUB_TOKENN }}
-          DATE: "${{ steps.current-time.outputs.formattedTime }}"
-      - uses: yanamura/ios-bump-version@v1
+        run: echo $commitnumber
