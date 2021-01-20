@@ -15,7 +15,7 @@ jobs:
         id: current-time
         with:
           format: YYYY.M.DD
-      - name build number
+      - name: build number
         run: |
         echo 'BUILD_NUMBER<<EOF' >> $GITHUB_ENV
         git rev-list --count master >> $GITHUB_ENV
