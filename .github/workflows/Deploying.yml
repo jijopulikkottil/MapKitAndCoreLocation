@@ -16,7 +16,7 @@ jobs:
         with:
           format: YYYY.M.DD
       - name: Get number of commits
-        run: |
-          commitnumber = $(git rev-list --count master)
+        env:
+          commitnumber: $(git rev-list --count master)
       - name: Checkout repository
         run: echo $commitnumber
