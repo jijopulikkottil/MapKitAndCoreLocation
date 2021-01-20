@@ -13,12 +13,10 @@ jobs:
         id: current-time
         with:
           format: YYYY.M.DD
-      - name: Use current time
-        env:
-          DATE: "${{ steps.current-time.outputs.formattedTime }}"	
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
+        env:
           token: ${{ secrets.GITHUB_TOKENN }}
+          DATE: "${{ steps.current-time.outputs.formattedTime }}"
       - uses: yanamura/ios-bump-version@v1
         run: echo $DATE $GITHUB_RUN_NUMBER $(git rev-list --count master)
