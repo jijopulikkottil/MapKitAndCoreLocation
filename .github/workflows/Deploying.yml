@@ -15,8 +15,10 @@ jobs:
         id: current-time
         with:
           format: YYYY.M.DD
-      - name: Get number of commits
-        env:
-          commitnumber: $(git rev-list --count master)
+      - name build number
+        run: |
+        echo 'BUILD_NUMBER<<EOF' >> $GITHUB_ENV
+        git rev-list --count master >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
       - name: Checkout repository
-        run: echo $commitnumber
+        run: echo $BUILD_NUMBER
