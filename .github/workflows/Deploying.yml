@@ -24,3 +24,4 @@ jobs:
       - name: print
         run: |
           echo ${{ steps.build.outputs.GIT_COMMIT_NUMBER }}
+          echo ${{ env.GIT_COMMIT_NUMBER }}
