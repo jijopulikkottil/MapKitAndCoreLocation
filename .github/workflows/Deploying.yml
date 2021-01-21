@@ -19,7 +19,7 @@ jobs:
           format: YYYY.M.DD
       - name: set build number to ENV
         run: |
-          echo "::set-output name=GIT_COMMIT_NUMBER::$(git rev-list --count master)"
+          echo "::set-output name=GIT_COMMIT_NUMBER::$(git rev-list --count HEAD ^master)"
         id: build
       - name: print
         run: |
