@@ -17,10 +17,9 @@ jobs:
         id: current-time
         with:
           format: YYYY.M.DD
-      - name: build number
+      - name: set build number to ENV
         run: |
-          echo 'BUILD_NUMBER<<EOF' >> $GITHUB_ENV
-          git rev-list --count master >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-      - name: Checkout repository
-        run: echo $BUILD_NUMBER
+          chmod +x .github/scripts/commit_count.sh
+          .github/scripts/commit_count.sh
+      - name: print
+        echo ${{ env.GIT_COMMIT_NUMBER }}
