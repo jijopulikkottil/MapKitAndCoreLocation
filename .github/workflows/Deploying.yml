@@ -19,11 +19,12 @@ jobs:
           format: YYYY.M.DD
       - name: set build number to ENV
         run: |
-          chmod +x .github/scripts/commit_count.sh
-          .github/scripts/commit_count.sh
+          GIT_COMMIT_NUMBER=$(git rev-list --count master)
+          echo $GIT_COMMIT_NUMBER
+          echo ${{ GIT_COMMIT_NUMBER }}
+          echo ${GIT_COMMIT_NUMBER}
       - name: print
         run: |
           echo $GIT_COMMIT_NUMBER
-          echo ${{ env.GIT_COMMIT_NUMBER1 }}
-          echo ${{ env.GIT_COMMIT_NUMBER2 }}
-          echo ${{ env.GIT_COMMIT_NUMBER }}
+          echo ${{ GIT_COMMIT_NUMBER }}
+          echo ${GIT_COMMIT_NUMBER}
