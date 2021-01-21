@@ -1,27 +1,24 @@
-name: Deploying
+name: Testing
 on:
   push:
     branches:
       - master
 jobs:
   deploy:
-    name: Deploying to Testflight
+    name: Testing to get build number
     runs-on: macOS-latest
     steps:
       - name: print
         run: echo $GITHUB_RUN_NUMBER
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Get current time
-        uses: srfrnk/current-time@master
-        id: current-time
-        with:
-          format: YYYY.M.DD
-      - name: set build number to ENV
+      - name: set build number
         run: |
           echo "::set-output name=GIT_COMMIT_NUMBER::$(git rev-list --count HEAD)"
+          mastrcommitcount=$(git rev-list --count HEAD)
+          echo $mastrcommitcount
         id: build
       - name: print
         run: |
           echo ${{ steps.build.outputs.GIT_COMMIT_NUMBER }}
-          echo ${{ env.GIT_COMMIT_NUMBER }}
+          echo $mastrcommitcount
