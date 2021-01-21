@@ -19,12 +19,8 @@ jobs:
           format: YYYY.M.DD
       - name: set build number to ENV
         run: |
-          GIT_COMMIT_NUMBER=$(git rev-list --count master)
-          echo $GIT_COMMIT_NUMBER
-          echo ${{ GIT_COMMIT_NUMBER }}
-          echo ${GIT_COMMIT_NUMBER}
+          echo "::set-output name=GIT_COMMIT_NUMBER::$(git rev-list --count master)"
+        id: build
       - name: print
         run: |
-          echo $GIT_COMMIT_NUMBER
-          echo ${{ GIT_COMMIT_NUMBER }}
-          echo ${GIT_COMMIT_NUMBER}
+          echo ${{ steps.build.outputs.GIT_COMMIT_NUMBER }}
