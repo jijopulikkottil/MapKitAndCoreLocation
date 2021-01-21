@@ -1,6 +1,6 @@
 //
 //  NotificationViewController.swift
-//  NotificationContent
+//  Notification
 //
 //  Created by Jijo Pulikkottil on 21/01/21.
 //  Copyright © 2021 MVoc. All rights reserved.
