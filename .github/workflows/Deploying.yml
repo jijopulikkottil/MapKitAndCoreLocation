@@ -22,4 +22,4 @@ jobs:
           chmod +x .github/scripts/commit_count.sh
           .github/scripts/commit_count.sh
       - name: print
-        echo ${{ env.GIT_COMMIT_NUMBER }}
+        run: echo $env.GIT_COMMIT_NUMBER
