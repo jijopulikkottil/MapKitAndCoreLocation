@@ -16,8 +16,8 @@ jobs:
           fetch-depth: 0
       - name: set build number
         run: |
-          echo "::set-output name=GIT_COMMIT_NUMBER::$(git rev-list --count HEAD)"
+          echo "::set-output name=GIT_COMMIT_NUMBER::$(git rev-list --count master)"
         id: build
       - name: print
         run: |
-          echo ${{ steps.build.outputs.GIT_COMMIT_NUMBER }}
+          echo "J${{ steps.build.outputs.GIT_COMMIT_NUMBER }}J"
