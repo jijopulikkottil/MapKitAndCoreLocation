@@ -25,4 +25,5 @@ jobs:
         run: |
           echo $GIT_COMMIT_NUMBER
           echo ${{ env.GIT_COMMIT_NUMBER1 }}
+          echo ${{ env.GIT_COMMIT_NUMBER2 }}
           echo ${{ env.GIT_COMMIT_NUMBER }}
